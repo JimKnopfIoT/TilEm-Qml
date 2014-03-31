@@ -1,0 +1,18 @@
+Build instructions
+------------------
+
+mkdir build
+cd build
+cmake ../build
+make
+
+To run inside build dir:
+make run
+
+TODO
+----
+
+Install target
+Click packaging
+Generating of config.h
+Cross-compiling

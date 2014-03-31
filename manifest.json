@@ -1,0 +1,15 @@
+{
+    "name": "com.ubuntu.developer.sam-sgrs.timem",
+    "description": "description of TimEm",
+    "framework": "ubuntu-sdk-14.04-qml-dev1",
+    "architecture": "all",
+    "title": "TimEm",
+    "hooks": {
+        "TimEm": {
+            "apparmor": "TimEm.json",
+            "desktop": "TimEm.desktop"
+        }
+    },
+    "version": "0.1",
+    "maintainer": "Sam Segers <sam.sgrs@gmail.com>"
+}

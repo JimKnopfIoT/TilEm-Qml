@@ -1,0 +1,24 @@
+# Qt
+*.user
+
+# Config
+config.log
+config.status
+
+# Autoconf
+autom4te.cache*
+*.m4
+
+# General
+*~
+
+# Build
+build*
+
+app/lib*
+app/keybindings.ini
+app/skins/*
+
+# Hidden Files
+.*
+!/.gitignore

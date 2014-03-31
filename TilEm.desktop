@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=TilEm
+Comment=My project description
+Exec=/usr/bin/qmlscene $@ /usr/share/TilEm/TilEm.qml
+Icon=qmlscene
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
