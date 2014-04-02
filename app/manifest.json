@@ -1,11 +1,12 @@
 {
     "architecture": [ "amd64", "armhf" ],
     "description": "TilEm is an Texas Instruments calculator emulator",
-    "framework": "ubuntu-sdk-13.10",
+    "framework": "ubuntu-sdk-14.04-papi-dev1",
     "hooks": {
         "TilEm": {
             "apparmor": "TilEm.json",
-            "desktop": "TilEm.desktop"
+            "desktop": "TilEm.desktop",
+            "urls": "TilEm.url-dispatcher"
         }
     },
     "maintainer": "Sam Segers <sam.sgrs@gmail.com>",

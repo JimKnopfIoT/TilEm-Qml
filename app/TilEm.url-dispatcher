@@ -1,0 +1,10 @@
+[
+        {
+                "protocol": "file",
+                "domain-suffix": ".rom"
+        },
+        {
+                "protocol": "file",
+                "domain-suffix": ".ROM"
+        }
+]
