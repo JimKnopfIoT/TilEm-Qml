@@ -47,7 +47,7 @@ macro_ensure_out_of_source_build("${PROJECT_NAME} requires an out of source buil
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-execute_process(COMMAND dpkg-architecture -qDEB_BUILD_MULTIARCH
+execute_process(COMMAND dpkg-architecture -qDEB_HOST_MULTIARCH
     OUTPUT_VARIABLE BUILD_ARCH
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
@@ -73,12 +73,14 @@ set(TILEM_TARGET TilEm)
 set(EMU_TARGET Emu)
 set(UTILS_TARGET Utils)
 set(RUNDIR_TARGET RunTarget)
-option(ONLY_EMU true)
 
+set(ONLY_EMU ON CACHE BOOL "Only build emu for static linking")
+set(QMLDUMP OFF CACHE BOOL "Dump qml info so it's loadable by the QtCreator editor")
+
+add_subdirectory(tilem-core)
+add_subdirectory(backend)
 add_subdirectory(app)
 add_subdirectory(data)
-add_subdirectory(backend)
-add_subdirectory(tilem-core)
 
 add_custom_target(${RUNDIR_TARGET} ALL
     DEPENDS ${TILEM_TARGET} ${QMLAPP_TARGET} ${DATA_TARGET} ${UTILS_TARGET} )

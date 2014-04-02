@@ -15,6 +15,8 @@ if(NOT DEFINED TILEM_URI)
     set(TILEM_URI ${TILEM_TARGET})
 endif()
 
+option(QMLDUMP "Dump qml info so it's loadable by the QtCreator editor" ON)
+
 set(out ${CMAKE_CURRENT_BINARY_DIR}/out )
 file(MAKE_DIRECTORY ${out})
 
@@ -109,9 +111,13 @@ add_custom_command(TARGET ${TILEM_TARGET} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E echo "Copy lib to run directory"
     COMMAND ${CMAKE_COMMAND} -E copy
         ${CP_LIB_FROM}
-        ${CP_LIB_TO}
+        ${CP_LIB_TO})
+
+if(QMLDUMP)
+add_custom_command(TARGET ${TILEM_TARGET} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E echo "Run qmlplugindump"
     COMMAND qmlplugindump -notrelocatable ${TILEM_TARGET} 1.0 ${LIB_DIR} > ${CP_LIB_TO}/${TILEM_PROJECT_TOLOWER}.qmltypes)
+endif(QMLDUMP)
 
 install(TARGETS ${TILEM_TARGET}
     DESTINATION lib/${BUILD_ARCH} )
