@@ -121,5 +121,5 @@ endif(QMLDUMP)
 
 install(TARGETS ${TILEM_TARGET}
     DESTINATION lib/${BUILD_ARCH}/${TILEM_TARGET} )
-install(FILES "qmldir"
+install(FILES "qmldir" ${RESOLVED_LIBS_TO_COPY}
     DESTINATION lib/${BUILD_ARCH}/${TILEM_TARGET})

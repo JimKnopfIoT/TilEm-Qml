@@ -25,6 +25,8 @@ set(SKINS
     skins/ti84pse.skn
     skins/ti86.skn)
 
+tilem_add_project_resources(${SKINS} keybindings.ini)
+
 foreach(_file ${SKINS} keybindings.ini)
 add_custom_command(
     TARGET ${DATA_TARGET}
@@ -32,4 +34,5 @@ add_custom_command(
     DEPENDS ${_file})
 endforeach()
 
-install(FILES ${SKINS} keybindings.ini DESTINATION ${DATA_DIR})
+install(FILES keybindings.ini DESTINATION ${DATA_DIR})
+install(FILES ${SKINS} DESTINATION ${DATA_DIR}skins)

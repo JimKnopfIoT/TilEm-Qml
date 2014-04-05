@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=TilEm
 Comment=TilEm is an Texas Instruments calculator emulator
-Exec=qmlscene ./TilEm.qml -I ./lib/arm-linux-gnueabihf
-Icon=qmlscene
+Exec=qmlscene ./TilEm.qml
+Icon=tilem.png
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true
