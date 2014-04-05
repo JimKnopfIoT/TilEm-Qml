@@ -17,6 +17,20 @@ MainView {
     */
     //automaticOrientation: true
 
+    // Arguments during startup
+    Arguments {
+        id: args
+        //defaultArgument.help: "Expects URI of the track to play." // should be used when bug is resolved
+        //defaultArgument.valueNames: ["URI"] // should be used when bug is resolved
+        // grab a file
+        Argument {
+            name: "file"
+            help: "URI for rom to use"
+            required: false
+            valueNames: ["rom"]
+        }
+    }
+
     width: 400
     height: 900
     Tabs {
@@ -70,6 +84,14 @@ MainView {
         if(appPkgData) {
             Env.mkdir(appPkgData)
             folderModel.folder = appPkgData
+        if (args.values.file) {
+            var argFile = args.values.file
+            if (argFile.indexOf("file://") != -1) {
+                argFile = argFile.substring(7);
+                debug(argFile);
+            }
+        }
+
         }
     }
 }
