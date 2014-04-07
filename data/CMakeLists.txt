@@ -25,7 +25,7 @@ set(SKINS
     skins/ti84pse.skn
     skins/ti86.skn)
 
-tilem_add_project_resources(${SKINS} keybindings.ini)
+qtcreator_add_project_resources(${SKINS} keybindings.ini)
 
 foreach(_file ${SKINS} keybindings.ini)
 add_custom_command(
@@ -34,5 +34,5 @@ add_custom_command(
     DEPENDS ${_file})
 endforeach()
 
-install(FILES keybindings.ini DESTINATION ${DATA_DIR})
-install(FILES ${SKINS} DESTINATION ${DATA_DIR}skins)
+install(FILES keybindings.ini DESTINATION ${CMAKE_INSTALL_DATADIR})
+install(FILES ${SKINS} DESTINATION ${CMAKE_INSTALL_DATA_DIR}skins)

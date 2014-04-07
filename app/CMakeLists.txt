@@ -21,7 +21,7 @@ set(CLICK_SRC
     TilEm.url-dispatcher
     tilem.png)
 
-tilem_add_project_resources(${QML_SRC} ${CLICK_SRC} manifest.json.cmake)
+qtcreator_add_project_resources(${QML_SRC} ${CLICK_SRC} manifest.json.cmake)
 
 foreach(_file ${QML_SRC} ${CLICK_SRC})
 add_custom_command(
@@ -36,4 +36,4 @@ add_custom_command(
 
 set(_target ${QMLAPP_TARGET})
 
-install(FILES ${QML_SRC} ${CLICK_SRC} ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${DATA_DIR})
+install(FILES ${QML_SRC} ${CLICK_SRC} ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${CMAKE_INSTALL_DATADIR})

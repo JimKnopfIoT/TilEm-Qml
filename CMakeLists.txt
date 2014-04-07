@@ -14,35 +14,17 @@ set(APPLICAION_EMAIL "Sam Segers <sam.sgrs@gmail.com>")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/")
 
-include(GNUInstallDirs)
+include(ResolveLibs)
 
-option(CLICK_MODE "Installs to a contained location" off)
-if(CLICK_MODE)
-    set(CMAKE_INSTALL_PREFIX /)
-    set(CMAKE_INSTALL_BINDIR /)
-    set(DATA_DIR /)
-    set(DESKTOP_DIR ${DATA_DIR})
-    set(URLS_DIR ${DATA_DIR})
-else(CLICK_MODE)
-    set(DATA_DIR ${CMAKE_INSTALL_DATADIR})
-    set(DESKTOP_DIR ${CMAKE_INSTALL_DATADIR}/applications)
-    set(URLS_DIR ${CMAKE_INSTALL_DATADIR}/url-dispatcher/urls)
-endif(CLICK_MODE)
-
-macro( tilem_add_project_resources resources )
-  add_custom_target( ${PROJECT_NAME}_Resources ALL SOURCES ${ARGN} )
-endmacro()
+include(CLICKInstallDirs)
 
 # add definitions
 include(DefineCMakeDefaults)
 include(DefinePlatformDefaults)
 include(DefineCompilerFlags)
-include(DefineInstallationPaths)
 include(DefineOptions.cmake)
 include(CPackConfig.cmake)
-
-# Standard install paths
-include(GNUInstallDirs)
+include(QtCreatorResources)
 
 # disallow in-source build
 include(MacroEnsureOutOfSourceBuild)
@@ -50,11 +32,6 @@ macro_ensure_out_of_source_build("${PROJECT_NAME} requires an out of source buil
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-execute_process(COMMAND dpkg-architecture -qDEB_HOST_MULTIARCH
-    OUTPUT_VARIABLE BUILD_ARCH
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-)
 
 # Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOMOC ON)
@@ -100,5 +77,5 @@ add_custom_command(
 endforeach()
 
 add_custom_target(run
-    COMMAND qmlscene -I lib/${BUILD_ARCH} TilEm.qml
+    COMMAND qmlscene -I lib/${BUILD_ARCH_TRIPLET} TilEm.qml
     WORKING_DIRECTORY run/)

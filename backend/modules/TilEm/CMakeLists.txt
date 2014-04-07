@@ -5,6 +5,9 @@ string(TOLOWER ${TILEM_TARGET} TILEM_PROJECT_TOLOWER)
 
 project(${TILEM_TARGET})
 
+find_package(Qt5Qml REQUIRED)
+find_package(Qt5Quick REQUIRED)
+
 if(NOT DEFINED TILEM_VERSION_MAJOR)
     set(TILEM_VERSION_MAJOR 1)
 endif()
@@ -20,12 +23,14 @@ option(QMLDUMP "Dump qml info so it's loadable by the QtCreator editor" ON)
 set(out ${CMAKE_CURRENT_BINARY_DIR}/out )
 file(MAKE_DIRECTORY ${out})
 
-set(LIB_DIR "${out}/lib/${BUILD_ARCH}")
+set(LIB_DIR "${out}/lib/${BUILD_ARCH_TRIPLET}")
 file(MAKE_DIRECTORY ${LIB_DIR})
 
 set(TILEM_PLUGIN_DIR "${LIB_DIR}/${TILEM_TARGET}")
 file(MAKE_DIRECTORY ${TILEM_PLUGIN_DIR})
 file(COPY "qmldir" DESTINATION "${TILEM_PLUGIN_DIR}/")
+
+qtcreator_add_project_resources(qmldir)
 
 find_package(Glib REQUIRED)
 find_package(GObject REQUIRED)
@@ -120,6 +125,6 @@ add_custom_command(TARGET ${TILEM_TARGET} POST_BUILD
 endif(QMLDUMP)
 
 install(TARGETS ${TILEM_TARGET}
-    DESTINATION lib/${BUILD_ARCH}/${TILEM_TARGET} )
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/${TILEM_TARGET} )
 install(FILES "qmldir" ${RESOLVED_LIBS_TO_COPY}
-    DESTINATION lib/${BUILD_ARCH}/${TILEM_TARGET})
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/${TILEM_TARGET})
