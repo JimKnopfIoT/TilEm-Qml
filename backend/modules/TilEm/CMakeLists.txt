@@ -47,21 +47,16 @@ if(NOT DEFINED EMU_TARGET)
 endif()
 include_directories(${${EMU_TARGET}_SOURCE_DIR})
 
-# set(LIBS_TO_COPY ${Glib_LIBRARIES} ${GObject_LIBRARIES} ${LIBC_LIBRARIES} ${GDK-PixBuf_LIBRARIES} ${TiCalcs_LIBRARIES} )
-set(LIBS_TO_COPY ${TiCalcs2_LIBRARIES} )
-set(LIBS_TO_INCLUDE ${Glib_LIBRARIES} ${GObject_LIBRARIES} ${LIBC_LIBRARIES} ${GDK-PixBuf_LIBRARIES})
-foreach(lib ${LIBS_TO_COPY})
-    resolve_lib(${lib} RESOLVED_LIBS_TO_COPY)
-endforeach(lib)
+set(LIBS ${TiCalcs2_LIBRARIES} ${Glib_LIBRARIES} ${GObject_LIBRARIES} ${LIBC_LIBRARIES} ${GDK-PixBuf_LIBRARIES})
+if(CLICK_MODE)
+    deploy_libs(${LIBS})
+endif(CLICK_MODE)
 
 if(NOT DEFINED EMU_TARGET)
     set(EMU_TARGET Emu)
 endif()
 
-set(LIBS ${RESOLVED_LIBS_TO_COPY} ${LIBS_TO_INCLUDE} ${EMU_TARGET} )
-MESSAGE("LIBS: ${LIBS}")
-
-file(COPY ${RESOLVED_LIBS_TO_COPY} DESTINATION ${LIB_DIR})
+set(LIBS ${LIBS} ${EMU_TARGET} )
 
 include_directories(
     ${CMAKE_BINARY_DIR}
