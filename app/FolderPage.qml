@@ -53,5 +53,6 @@ Page {
             sortField: FolderListModel.Name
             nameFilters: [ "*.rom", "*.ROM" ]
         }
+        clip: true
     }
 }
