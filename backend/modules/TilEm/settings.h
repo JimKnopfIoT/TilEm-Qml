@@ -22,9 +22,11 @@
 
 #include <QList>
 #include <QStringList>
+#include <QRect>
 
 class SettingsPrivate;
 class QPixmap;
+class QImage;
 
 struct ScaleFactor {
     int sx;
