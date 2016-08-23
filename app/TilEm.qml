@@ -49,7 +49,7 @@ MainView {
 
                 onPeerSelected: {
                     ct = peer.request(contentStore)
-                    //PopupUtils.close(picker)
+                    PopupUtils.close(picker)
                 }
 
                 onCancelPressed: {

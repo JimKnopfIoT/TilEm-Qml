@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Qt.labs.folderlistmodel 1.0
-import Ubuntu.Components.ListItems 1.3 as ListItem
+import Utils 1.0
 
 Page {
     signal request
@@ -23,12 +23,28 @@ Page {
         id: list
         anchors.fill: parent
         delegate: Component {
-            ListItem.Standard {
-                text: fileName
-                progression: true
-                onClicked: {
-                    loadRomFile(filePath)
+            ListItem {
+                Label {
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(3)
+                    textSize: Label.Large
+                    text: fileName
                 }
+                action: Action {
+                    onTriggered: {
+                        loadRomFile(filePath)
+                    }
+                }
+                trailingActions: ListItemActions {
+                    actions: Action {
+                        iconName: "delete"
+                        onTriggered: {
+                            File.removeFile(filePath)
+                        }
+                    }
+                }
+                divider.visible: true
             }
         }
         model: FolderListModel {
