@@ -20,16 +20,6 @@ endif()
 
 option(QMLDUMP "Dump qml info so it's loadable by the QtCreator editor" ON)
 
-set(out ${CMAKE_CURRENT_BINARY_DIR}/out )
-file(MAKE_DIRECTORY ${out})
-
-set(LIB_DIR "${out}/lib/${BUILD_ARCH_TRIPLET}")
-file(MAKE_DIRECTORY ${LIB_DIR})
-
-set(TILEM_PLUGIN_DIR "${LIB_DIR}/${TILEM_TARGET}")
-file(MAKE_DIRECTORY ${TILEM_PLUGIN_DIR})
-file(COPY "qmldir" DESTINATION "${TILEM_PLUGIN_DIR}/")
-
 qtcreator_add_project_resources(qmldir)
 
 find_package(Glib REQUIRED)
@@ -101,27 +91,21 @@ target_link_libraries(${TILEM_TARGET}
     ${LIBS}
 )
 
-set(CMAKE_BUILD_TYPE Release)
+set(TILEM_LIB_NAME $<TARGET_FILE:${TILEM_TARGET}>)
 
-GET_TARGET_PROPERTY(TILEM_LIB_NAME ${TILEM_TARGET} LOCATION)
-set(CP_LIB_FROM ${TILEM_LIB_NAME})
-set(CP_LIB_TO "${TILEM_PLUGIN_DIR}")
-add_custom_command(TARGET ${TILEM_TARGET} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E echo "POST BUILD"
-    COMMAND ${CMAKE_COMMAND} -E echo "Copy lib to run directory"
-    COMMAND ${CMAKE_COMMAND} -E copy
-        ${CP_LIB_FROM}
-        ${CP_LIB_TO})
+set("${TILEM_TARGET}_FILES" ${TILEM_LIB_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/qmldir)
+set("${TILEM_TARGET}_FILES" ${${TILEM_TARGET}_FILES} PARENT_SCOPE)
 
+set(TILEM_PLUGIN_DIR ${CMAKE_CURRENT_BINARY_DIR}/${TILEM_TARGET})
 if(QMLDUMP)
 add_custom_command(TARGET ${TILEM_TARGET} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${TILEM_LIB_NAME} ${TILEM_PLUGIN_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy qmldir ${TILEM_PLUGIN_DIR}
     COMMAND ${CMAKE_COMMAND} -E echo "Run qmlplugindump"
-    COMMAND qmlplugindump -notrelocatable ${TILEM_TARGET} 1.0 ${LIB_DIR} > ${CP_LIB_TO}/${TILEM_PROJECT_TOLOWER}.qmltypes)
+    COMMAND qmlplugindump -notrelocatable ${TILEM_TARGET} 1.0 ${CMAKE_CURRENT_BINARY_DIR} > ${TILEM_PLUGIN_DIR}/${TILEM_PROJECT_TOLOWER}.qmltypes)
 endif(QMLDUMP)
 
 install(TARGETS ${TILEM_TARGET}
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/${TILEM_TARGET} )
 install(FILES "qmldir"
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/${TILEM_TARGET})
-install(FILES ${RESOLVED_LIBS_TO_COPY}
-    DESTINATION ${CMAKE_INSTALL_LIBDIR})

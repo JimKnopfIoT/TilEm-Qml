@@ -6,9 +6,6 @@ string(TOLOWER ${QMLAPP_TARGET} QMLAPP_TARGET_TOLOWER)
 project(${QMLAPP_TARGET})
 add_custom_target(${QMLAPP_TARGET})
 
-set(out ${CMAKE_CURRENT_BINARY_DIR}/out )
-file(MAKE_DIRECTORY ${out})
-
 configure_file(manifest.json.cmake ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
 
 set(QML_SRC
@@ -16,23 +13,15 @@ set(QML_SRC
     TilEm.qml)
 
 set(CLICK_SRC
-    TilEm.json
+    TilEm.apparmor
     TilEm.desktop
-    TilEm.url-dispatcher
-    tilem.png)
+    tilem.png
+    TilEm-hub.json)
 
-qtcreator_add_project_resources(${QML_SRC} ${CLICK_SRC} manifest.json.cmake)
+set("${QMLAPP_TARGET}_FILES" ${QML_SRC} ${CLICK_SRC})
+set("${QMLAPP_TARGET}_FILES" ${${QMLAPP_TARGET}_FILES} PARENT_SCOPE)
 
-foreach(_file ${QML_SRC} ${CLICK_SRC})
-add_custom_command(
-    TARGET ${QMLAPP_TARGET}
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/${_file} ${out}/${_file}
-    DEPENDS ${_file})
-endforeach()
-add_custom_command(
-    TARGET ${QMLAPP_TARGET}
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/manifest.json ${out}/manifest.json
-    DEPENDS manifest.json)
+qtcreator_add_project_resources(${${QMLAPP_TARGET}_FILES} manifest.json.cmake)
 
 set(_target ${QMLAPP_TARGET})
 

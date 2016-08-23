@@ -6,9 +6,6 @@ string(TOLOWER ${DATA_TARGET} DATA_TARGET_TOLOWER)
 project(${DATA_TARGET})
 add_custom_target(${DATA_TARGET})
 
-set(out ${CMAKE_CURRENT_BINARY_DIR}/out )
-file(MAKE_DIRECTORY ${out})
-
 set(SKINS
     skins/ti82.skn
     skins/ti83pfr.skn
@@ -25,14 +22,10 @@ set(SKINS
     skins/ti84pse.skn
     skins/ti86.skn)
 
-qtcreator_add_project_resources(${SKINS} keybindings.ini)
+set("${DATA_TARGET}_FILES" ${SKINS} keybindings.ini)
+set("${DATA_TARGET}_FILES" ${${DATA_TARGET}_FILES} PARENT_SCOPE)
 
-foreach(_file ${SKINS} keybindings.ini)
-add_custom_command(
-    TARGET ${DATA_TARGET}
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/${_file} ${out}/${_file}
-    DEPENDS ${_file})
-endforeach()
+qtcreator_add_project_resources(${${DATA_TARGET}_FILES})
 
 install(FILES keybindings.ini DESTINATION ${CMAKE_INSTALL_DATADIR})
 install(FILES ${SKINS} DESTINATION ${CMAKE_INSTALL_DATA_DIR}skins)
