@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import Ubuntu.Components 0.1
+import QtQuick 2.4
+import Ubuntu.Components 1.3
 import TilEm 1.0
 import Utils 1.0
 
@@ -11,6 +11,10 @@ Page {
         if(romFile == "")
             return;
         calcObj.load(romFile)
+    }
+
+    header: PageHeader {
+        title: i18n.tr("Calc")
     }
 
     Calc {
@@ -38,7 +42,10 @@ Page {
     SkinImage {
         id: skinImageId
         skin: skinId
-        anchors.fill: parent
+        anchors.top: header.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
         CalcScreen {
             calc: calcObj
             x: skinImageId.lcdX

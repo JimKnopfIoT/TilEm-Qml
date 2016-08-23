@@ -10,6 +10,7 @@ configure_file(manifest.json.cmake ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
 
 set(QML_SRC
     CalcPage.qml
+    FolderPage.qml
     TilEm.qml)
 
 set(CLICK_SRC
