@@ -1,0 +1,6 @@
+[submodule "backend/modules/Utils"]
+	path = backend/modules/Utils
+	url = https://github.com/labsin/QmlUtilsPlugin
+[submodule "tilem-core"]
+	path = tilem-core
+	url = https://github.com/labsin/TilEm
