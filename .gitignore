@@ -18,7 +18,3 @@ build*
 app/lib*
 app/keybindings.ini
 app/skins/*
-
-# Hidden Files
-.*
-!/.gitignore
