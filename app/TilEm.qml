@@ -63,7 +63,6 @@ MainView {
         id: contentStore
         scope: ContentScope.App
         onUriChanged: print("Store, uri changed: " + contentStore.uri)
-        Component.onCompleted: print("Store: " + contentStore.uri)
     }
 
     ContentTransferHint {
@@ -85,12 +84,6 @@ MainView {
             print("ContentTransfer.Finalized\t" + ContentTransfer.Finalized)
             print("ContentTransfer.Downloading\t" + ContentTransfer.Downloading)
             print("ContentTransfer.Downloaded\t" + ContentTransfer.Downloaded)
-            if (ct.state === ContentTransfer.Charged) {
-                print(ct.items);
-            }
-            if(ct.state === tentTransfer.Charged) {
-                print(ct.items)
-            }
         }
     }
 
