@@ -355,7 +355,7 @@ void Calc::save()
  */
 void Calc::load(const QString &file)
 {
-    qDebug() << "Calc: load a file";
+    qDebug() << "Calc: load a file" << file;
     /// 1) stop/cleanup phase
     emit beginLoad();
 
@@ -367,7 +367,7 @@ void Calc::load(const QString &file)
 
     QFileInfo info(file);
 
-    FILE *romfile, *savefile;
+    FILE *romfile, *savefile = 0;
 
 //    QString savefilename = QDir(info.path()).filePath(info.completeBaseName() + ".sav");
 
