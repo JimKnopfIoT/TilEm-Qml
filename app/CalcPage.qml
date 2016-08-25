@@ -24,7 +24,7 @@ Page {
             print("modelName: "+modelName)
             var skinFile = Qt.resolvedUrl("skins/"+modelName+".skn")
             print("skinFile: "+skinFile)
-            if(Env.fileExists(skinFile)) {
+            if(File.fileExists(skinFile)) {
                 print("Skin exists")
                 skinId.skinFile = skinFile
             }
