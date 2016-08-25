@@ -1,5 +1,5 @@
 {
-    "architecture": "amd64",
+    "architecture": "${DPKG_BUILD_ARCH}",
     "description": "TilEm is an Texas Instruments calculator emulator",
     "framework": "ubuntu-sdk-15.04",
     "hooks": {
