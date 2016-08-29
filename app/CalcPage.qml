@@ -4,7 +4,9 @@ import TilEm 1.0
 import Utils 1.0
 
 Page {
+    id: root
     property string romFile: ""
+    property bool fullscreen: false
 
     onRomFileChanged: {
         print("set romFile " + romFile)
@@ -15,6 +17,28 @@ Page {
 
     header: PageHeader {
         title: i18n.tr("Calc")
+        leadingActionBar.actions: [
+            Action {
+                iconName: "back"
+                onTriggered: {
+                    apl.removePages(root)
+                    root.romFile = ""
+                }
+            }
+        ]
+        trailingActionBar.actions: [
+            Action {
+                iconName: "view-fullscreen"
+                onTriggered: {
+                    root.fullscreen = !root.fullscreen
+                }
+            }
+        ]
+        StyleHints {
+            foregroundColor: "transparent"
+            backgroundColor: "transparent"
+            dividerColor: "transparent"
+        }
     }
 
     Calc {
@@ -42,7 +66,7 @@ Page {
     SkinImage {
         id: skinImageId
         skin: skinId
-        anchors.top: header.bottom
+        anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
