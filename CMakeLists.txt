@@ -1,4 +1,4 @@
-project(TimEm)
+project(TilEm)
 cmake_minimum_required(VERSION 2.8.10)
 set(APPLICATION_NAME tilem)
 set(APPLICATION_NAME_LOWER tilem)
